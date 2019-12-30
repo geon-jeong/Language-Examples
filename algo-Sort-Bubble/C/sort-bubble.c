@@ -10,6 +10,10 @@
 #define LOWER 0
 #define UPPER 100
 
+#define TRACE_DATA
+
+void print_data(int* _data, int _nsize, int _i, int _j);
+
 /*
  * Bubble Sorting 
  */ 
@@ -24,6 +28,7 @@ void bubble_sort(int* _data, int _nsize)
                 temp = _data[j];
                 _data[j] = _data[j-1];
                 _data[j-1] = temp;
+                print_data(_data, _nsize, i, j);
             } // end of if
         } // end of j-loop
     } // end of i-loop
@@ -48,6 +53,15 @@ int* generate_random_numbers(int _lower, int _upper, int _count)
     return rvalues;
 }
 
+void print_data(int* _data, int _nsize, int _i, int _j)
+{
+    #ifdef TRACE_DATA
+        printf("i= %2d, j=%2d, j-1=%2d [ ", _i, _j, _j-1);
+        for(int icnt = 0; icnt < _nsize; icnt++)
+            printf("%d, ", _data[icnt]);        
+        printf("] \n");
+    #endif 
+}
 
 int main()
 {
@@ -56,14 +70,14 @@ int main()
     int* random_data 
         = generate_random_numbers(LOWER, UPPER, NSAMPLE);
         
-    for(i = 0 ; i < NSAMPLE ; i++)
-        printf(" %d, ", random_data[i]);
+    printf("\n Data \n");    
+    print_data(random_data, NSAMPLE, -1, -1);
     
+    printf("\n Sorting \n");
     bubble_sort(random_data, NSAMPLE);
         
-    printf("\n Sort \n");
-    for(i = 0 ; i < NSAMPLE ; i++)
-        printf(" %d, ", random_data[i]);
+    printf("\n Result \n");
+    print_data(random_data, NSAMPLE, -1, -1);
     
     return 0;
 }
