@@ -17,8 +17,9 @@ def func_recv_data(_socket):
 #
 if __name__ == '__main__':
     port = 8082
-
+    
     sv_socket = socket(AF_INET, SOCK_STREAM)
+    #or:  with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sv_socket:
     sv_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     sv_socket.bind(('', port))
     sv_socket.listen(1)
@@ -35,5 +36,3 @@ if __name__ == '__main__':
     while True:
         time.sleep(0.5)
         pass
-
-
